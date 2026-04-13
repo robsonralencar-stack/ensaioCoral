@@ -72,15 +72,15 @@ const Home = () => {
               <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent"></div>
               <div className="relative h-[400px] p-8 flex flex-col justify-end">
                 <span className="bg-cta text-primary text-xs font-bold px-3 py-1 rounded-full w-fit mb-4">DESTAQUE</span>
-                <h4 className="font-display text-3xl font-semibold mb-2">Santa Ceia</h4>
-                <p className="text-white/80 line-clamp-2">Uma noite inesquecível celebrando os clássicos com arranjos exclusivos florais e harmonias celestiais.</p>
+                <h4 className="font-display text-3xl font-semibold mb-2">Cantata de Páscoa</h4>
+                <p className="text-white/80 line-clamp-2">Uma noite inesquecível celebrando a ressurreição de Cristo.</p>
               </div>
             </div>
             <div className="flex flex-col gap-6">
               {[1, 2].map((_, i) => (
                 <div key={i} className="flex gap-6 items-center bg-white/5 border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition-colors cursor-pointer group">
                   <div className="h-24 w-24 shrink-0 rounded-xl overflow-hidden relative">
-                    <img src={`https://images.unsplash.com/photo-1507838153414-b4b713384a76?q=80&w=600&auto=format&fit=crop&sig=${i}`} alt="Event thumbnail" className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
+                    <img src={`${import.meta.env.BASE_URL}images/evento-thumb.jpg`} alt="Event thumbnail" className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
                   </div>
                   <div>
                     <h5 className="font-display text-xl font-semibold mb-2 group-hover:text-cta transition-colors">Especial Renascença</h5>

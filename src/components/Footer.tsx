@@ -12,8 +12,11 @@ const Footer = () => {
               CORAL ÁGAPE
             </h3>
             <p className="text-white/70 mb-6 font-light leading-relaxed">
-              Levando emoção e harmonia através de apresentações inesquecíveis, conectando pessoas pela verdadeira arte da música coral.
-            </p>
+              Porque a tua benignidade é melhor do que a vida;
+              os meus lábios te louvarão.
+              Assim, eu te bendirei enquanto viver;
+              em teu nome levantarei as minhas mãos.
+              Salmo 63:3-4            </p>
             <div className="flex space-x-4">
               <a href="#" className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-cta transition-colors text-white">
                 <FaInstagram className="h-5 w-5" />
