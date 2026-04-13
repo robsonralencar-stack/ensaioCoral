@@ -62,6 +62,13 @@ const Events = () => {
   const [activeSong, setActiveSong] = useState<string | null>(null);
   const [activeNaipe, setActiveNaipe] = useState<string | null>(null);
 
+  // Usa o BASE_URL dinâmico do Vite (no deploy será /ensaioCoral/, mas localmente pode ser outro se configurado)
+  const getAssetUrl = (path: string) => {
+    // Se a string começar com /, remova para não duplicar com a barra do BASE_URL
+    const cleanPath = path.startsWith('/') ? path.slice(1) : path;
+    return `${import.meta.env.BASE_URL}${cleanPath}`;
+  };
+
   const toggleSong = (songId: string) => {
     if (activeSong === songId) {
       setActiveSong(null);
@@ -170,7 +177,7 @@ const Events = () => {
                                         <div className="p-4 md:p-6 border-t border-primary/5">
                                           <div className="bg-primary rounded-xl p-6 mb-6 shadow-inner">
                                             <p className="text-white/50 text-xs font-semibold uppercase tracking-wider mb-3">Kit de Ensaio ({naipe.name})</p>
-                                            <audio controls className="w-full max-w-2xl outline-none" src={naipe.audioUrl}>
+                                            <audio controls className="w-full max-w-2xl outline-none" src={getAssetUrl(naipe.audioUrl)}>
                                               Seu navegador não suporta o elemento de áudio.
                                             </audio>
                                           </div>
@@ -178,12 +185,12 @@ const Events = () => {
                                           <div className="pl-4 md:pl-8 border-l-4 border-cta/60 flex-1">
                                             <div className="flex items-center justify-between mb-4">
                                               <p className="text-primary/40 text-xs font-semibold uppercase tracking-wider m-0">Letra (PDF)</p>
-                                              <a href={naipe.pdfUrl} target="_blank" rel="noreferrer" className="text-secondary text-sm font-medium hover:underline inline-flex items-center gap-1">
+                                              <a href={getAssetUrl(naipe.pdfUrl)} target="_blank" rel="noreferrer" className="text-secondary text-sm font-medium hover:underline inline-flex items-center gap-1">
                                                 Abrir em nova aba
                                               </a>
                                             </div>
                                             <div className="w-full aspect-[1/1.4] max-h-[600px] bg-white rounded-lg overflow-hidden shadow">
-                                              <iframe src={`${naipe.pdfUrl}#toolbar=0`} className="w-full h-full border-0" title={`Letra de ${song.title}`}></iframe>
+                                              <iframe src={`${getAssetUrl(naipe.pdfUrl)}#toolbar=0`} className="w-full h-full border-0" title={`Letra de ${song.title}`}></iframe>
                                             </div>
                                           </div>
                                         </div>
