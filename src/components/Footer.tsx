@@ -32,7 +32,8 @@ const Footer = () => {
             <ul className="space-y-4">
               <li className="flex items-start gap-3 text-white/70">
                 <MapPin className="h-5 w-5 text-cta shrink-0 mt-0.5" />
-                <span>Teatro Municipal, Sala 4<br />Centro Histórico</span>
+                <span>Igreja Batista Ágape
+                  Rua Professor Lino Encarnação, 960 - Parquelândia, Fortaleza - CE </span>
               </li>
               <li className="flex items-center gap-3 text-white/70">
                 <Mail className="h-5 w-5 text-cta shrink-0" />
@@ -46,27 +47,20 @@ const Footer = () => {
           </div>
 
           <div>
-            <h4 className="font-display text-xl font-medium mb-6 text-white">Fale Conosco</h4>
-            <form className="space-y-4" onSubmit={(e) => e.preventDefault()}>
-              <input
-                type="text"
-                placeholder="Seu nome"
-                className="w-full bg-white/5 border border-white/10 rounded-md px-4 py-2 focus:outline-none focus:border-cta text-white transition-colors"
-              />
-              <input
-                type="email"
-                placeholder="Seu email"
-                className="w-full bg-white/5 border border-white/10 rounded-md px-4 py-2 focus:outline-none focus:border-cta text-white transition-colors"
-              />
-              <button className="w-full bg-cta hover:bg-yellow-500 text-white font-medium py-2 rounded-md transition-colors cursor-pointer">
-                Enviar Mensagem
-              </button>
-            </form>
+            <h4 className="font-display text-xl font-medium mb-6 text-white">Ensaios</h4>
+            <ul className="space-y-4">
+              <li className="flex items-center gap-3 text-white/70">
+                <span>Segunda-Feira - 19:30h<br />Ensaio Geral</span>
+              </li>
+              <li className="flex items-center gap-3 text-white/70">
+                <span>Sexta-Feira - 19:30h<br />Ensaio dos Naipes</span>
+              </li>
+            </ul>
           </div>
-        </div>
 
-        <div className="border-t border-white/10 pt-8 text-center text-white/50 text-sm">
-          <p>&copy; {new Date().getFullYear()} Grupo Coral Vozes. Todos os direitos reservados.</p>
+          <div className="border-t border-white/10 pt-8 text-center text-white/50 text-sm">
+            <p>&copy; {new Date().getFullYear()} Grupo Coral Vozes. Todos os direitos reservados.</p>
+          </div>
         </div>
       </div>
     </footer>

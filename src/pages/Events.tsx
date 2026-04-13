@@ -15,15 +15,23 @@ const EVENTS = [
         id: "s1",
         title: "Canção da Revelação",
         composer: "Jennie Lee Riddle",
-        pdfUrl: "/pdf/cancaoRevelacao.pdf",
-        audioUrl: "/audio/cancaoRevelacao.mp3"
+        naipes: [
+          { id: "s1-soprano", name: "Soprano", pdfUrl: "/pdf/cancaoRevelacao.pdf", audioUrl: "/audio/cancaoRevelacao.mp3" },
+          { id: "s1-contralto", name: "Contralto", pdfUrl: "/pdf/cancaoRevelacao.pdf", audioUrl: "/audio/cancaoRevelacao.mp3" },
+          { id: "s1-tenor", name: "Tenor", pdfUrl: "/pdf/cancaoRevelacao.pdf", audioUrl: "/audio/cancaoRevelacao.mp3" },
+          { id: "s1-baixo", name: "Baixo", pdfUrl: "/pdf/cancaoRevelacao.pdf", audioUrl: "/audio/cancaoRevelacao.mp3" }
+        ]
       },
       {
         id: "s2",
         title: "Em Jesus Amigo Temos",
         composer: "Joseph M. Scriven",
-        pdfUrl: "/pdf/emJesusAmigoTemos.pdf",
-        audioUrl: "/audio/emJesusAmigoTemos.mp3"
+        naipes: [
+          { id: "s2-soprano", name: "Soprano", pdfUrl: "/pdf/emJesusAmigoTemos.pdf", audioUrl: "/audio/emJesusAmigoTemos.mp3" },
+          { id: "s2-contralto", name: "Contralto", pdfUrl: "/pdf/emJesusAmigoTemos.pdf", audioUrl: "/audio/emJesusAmigoTemos.mp3" },
+          { id: "s2-tenor", name: "Tenor", pdfUrl: "/pdf/emJesusAmigoTemos.pdf", audioUrl: "/audio/emJesusAmigoTemos.mp3" },
+          { id: "s2-baixo", name: "Baixo", pdfUrl: "/pdf/emJesusAmigoTemos.pdf", audioUrl: "/audio/emJesusAmigoTemos.mp3" }
+        ]
       }
     ]
   },
@@ -39,8 +47,12 @@ const EVENTS = [
         id: "s3",
         title: "Noite Feliz",
         composer: "Franz Gruber",
-        pdfUrl: "/pdf/cancaoRevelacao.pdf",
-        audioUrl: "/audio/noiteFeliz.mp3"
+        naipes: [
+          { id: "s3-soprano", name: "Soprano", pdfUrl: "/pdf/cancaoRevelacao.pdf", audioUrl: "/audio/noiteFeliz.mp3" },
+          { id: "s3-contralto", name: "Contralto", pdfUrl: "/pdf/cancaoRevelacao.pdf", audioUrl: "/audio/noiteFeliz.mp3" },
+          { id: "s3-tenor", name: "Tenor", pdfUrl: "/pdf/cancaoRevelacao.pdf", audioUrl: "/audio/noiteFeliz.mp3" },
+          { id: "s3-baixo", name: "Baixo", pdfUrl: "/pdf/cancaoRevelacao.pdf", audioUrl: "/audio/noiteFeliz.mp3" }
+        ]
       }
     ]
   }
@@ -48,9 +60,20 @@ const EVENTS = [
 
 const Events = () => {
   const [activeSong, setActiveSong] = useState<string | null>(null);
+  const [activeNaipe, setActiveNaipe] = useState<string | null>(null);
 
   const toggleSong = (songId: string) => {
-    setActiveSong(prev => prev === songId ? null : songId);
+    if (activeSong === songId) {
+      setActiveSong(null);
+      setActiveNaipe(null);
+    } else {
+      setActiveSong(songId);
+      setActiveNaipe(null);
+    }
+  };
+
+  const toggleNaipe = (naipeId: string) => {
+    setActiveNaipe(prev => prev === naipeId ? null : naipeId);
   };
 
   return (
@@ -122,27 +145,53 @@ const Events = () => {
                         </div>
                       </button>
 
-                      {/* Expanded Content (Lyrics + Audio) */}
+                      {/* Expanded Content (List of Naipes) */}
                       <div className={`transition-all duration-300 ease-in-out ${isActive ? 'grid-rows-[1fr] opacity-100' : 'grid-rows-[0fr] opacity-0'} grid`}>
                         <div className="overflow-hidden">
                           <div className="px-6 pb-8 pt-4 border-t border-primary/10">
-                            <div className="bg-primary rounded-xl p-6 mb-6 mt-2 shadow-inner">
-                              <p className="text-white/50 text-xs font-semibold uppercase tracking-wider mb-3">Ouvir Previa</p>
-                              <audio controls className="w-full max-w-2xl outline-none" src={song.audioUrl}>
-                                Seu navegador não suporta o elemento de áudio.
-                              </audio>
-                            </div>
+                            <h4 className="text-primary font-semibold mb-4 text-sm uppercase tracking-wider">Selecione seu naipe:</h4>
+                            <div className="space-y-3">
+                              {song.naipes.map((naipe) => {
+                                const isNaipeActive = activeNaipe === naipe.id;
+                                return (
+                                  <div key={naipe.id} className="border border-primary/10 rounded-lg overflow-hidden bg-white/40">
+                                    {/* Naipe Toggle */}
+                                    <button
+                                      onClick={() => toggleNaipe(naipe.id)}
+                                      className={`w-full px-5 py-3 flex items-center justify-between cursor-pointer transition-colors ${isNaipeActive ? 'bg-primary/5' : 'hover:bg-white/60'}`}
+                                    >
+                                      <span className="font-medium text-primary">{naipe.name}</span>
+                                      {isNaipeActive ? <ChevronUp className="h-4 w-4 text-primary/60" /> : <ChevronDown className="h-4 w-4 text-primary/60" />}
+                                    </button>
+                                    
+                                    {/* Expanded Content (Audio + PDF) for Naipe */}
+                                    <div className={`transition-all duration-300 ease-in-out ${isNaipeActive ? 'grid-rows-[1fr] opacity-100' : 'grid-rows-[0fr] opacity-0'} grid`}>
+                                      <div className="overflow-hidden">
+                                        <div className="p-4 md:p-6 border-t border-primary/5">
+                                          <div className="bg-primary rounded-xl p-6 mb-6 shadow-inner">
+                                            <p className="text-white/50 text-xs font-semibold uppercase tracking-wider mb-3">Kit de Ensaio ({naipe.name})</p>
+                                            <audio controls className="w-full max-w-2xl outline-none" src={naipe.audioUrl}>
+                                              Seu navegador não suporta o elemento de áudio.
+                                            </audio>
+                                          </div>
 
-                            <div className="pl-4 md:pl-8 border-l-4 border-cta/60 flex-1">
-                              <div className="flex items-center justify-between mb-4">
-                                <p className="text-primary/40 text-xs font-semibold uppercase tracking-wider m-0">Letra (PDF)</p>
-                                <a href={song.pdfUrl} target="_blank" rel="noreferrer" className="text-secondary text-sm font-medium hover:underline inline-flex items-center gap-1">
-                                  Abrir em nova aba
-                                </a>
-                              </div>
-                              <div className="w-full aspect-[1/1.4] max-h-[600px] bg-white rounded-lg overflow-hidden shadow">
-                                <iframe src={`${song.pdfUrl}#toolbar=0`} className="w-full h-full border-0" title={`Letra de ${song.title}`}></iframe>
-                              </div>
+                                          <div className="pl-4 md:pl-8 border-l-4 border-cta/60 flex-1">
+                                            <div className="flex items-center justify-between mb-4">
+                                              <p className="text-primary/40 text-xs font-semibold uppercase tracking-wider m-0">Letra (PDF)</p>
+                                              <a href={naipe.pdfUrl} target="_blank" rel="noreferrer" className="text-secondary text-sm font-medium hover:underline inline-flex items-center gap-1">
+                                                Abrir em nova aba
+                                              </a>
+                                            </div>
+                                            <div className="w-full aspect-[1/1.4] max-h-[600px] bg-white rounded-lg overflow-hidden shadow">
+                                              <iframe src={`${naipe.pdfUrl}#toolbar=0`} className="w-full h-full border-0" title={`Letra de ${song.title}`}></iframe>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                );
+                              })}
                             </div>
                           </div>
                         </div>
