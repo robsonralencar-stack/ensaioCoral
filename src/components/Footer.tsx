@@ -35,7 +35,7 @@ const Footer = () => {
             <ul className="space-y-4">
               <li className="flex items-start gap-3 text-white/70">
                 <MapPin className="h-5 w-5 text-cta shrink-0 mt-0.5" />
-                <span>Igreja Batista Ágape
+                <span>Igreja Batista Ágape<br />
                   Rua Professor Lino Encarnação, 960 - Parquelândia, Fortaleza - CE </span>
               </li>
               <li className="flex items-center gap-3 text-white/70">
@@ -62,7 +62,7 @@ const Footer = () => {
           </div>
 
           <div className="border-t border-white/10 pt-8 text-center text-white/50 text-sm">
-            <p>&copy; {new Date().getFullYear()} Grupo Coral Vozes. Todos os direitos reservados.</p>
+            <p>&copy; {new Date().getFullYear()} Grupo Coral Ágape. Todos os direitos reservados.</p>
           </div>
         </div>
       </div>
