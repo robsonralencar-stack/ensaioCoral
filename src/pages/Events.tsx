@@ -15,43 +15,25 @@ const EVENTS = [
         id: "s1",
         title: "Canção da Revelação",
         composer: "Jennie Lee Riddle",
+        audioDemoUrl: "/audio/cancaoDaRevelacao-Demonstrativo.mp3",
         naipes: [
-          { id: "s1-soprano", name: "Soprano", pdfUrl: "/pdf/cancaoRevelacao.pdf", audioUrl: "/audio/cancaoRevelacao.mp3" },
-          { id: "s1-contralto", name: "Contralto", pdfUrl: "/pdf/cancaoRevelacao.pdf", audioUrl: "/audio/cancaoRevelacao.mp3" },
-          { id: "s1-tenor", name: "Tenor", pdfUrl: "/pdf/cancaoRevelacao.pdf", audioUrl: "/audio/cancaoRevelacao.mp3" },
-          { id: "s1-baixo", name: "Baixo", pdfUrl: "/pdf/cancaoRevelacao.pdf", audioUrl: "/audio/cancaoRevelacao.mp3" }
+          { id: "s1-soprano", name: "Soprano", pdfUrl: "/pdf/cancaoRevelacao.pdf", audioUrl: "/audio/cancaoDaRevelacao-Soprano.mp3" },
+          { id: "s1-mezzo", name: "Mezzo", pdfUrl: "/pdf/cancaoRevelacao.pdf", audioUrl: "/audio/cancaoDaRevelacao-Mezzo.mp3" },
+          { id: "s1-tenor", name: "Tenor", pdfUrl: "/pdf/cancaoRevelacao.pdf", audioUrl: "/audio/cancaoDaRevelacao-Tenor.mp3" },
+          { id: "s1-baixo", name: "Baixo", pdfUrl: "/pdf/cancaoRevelacao.pdf", audioUrl: "/audio/cancaoDaRevelacao-Baixo.mp3" }
         ]
       },
       {
         id: "s2",
         title: "Em Jesus Amigo Temos",
         composer: "Joseph M. Scriven",
+        audioDemoUrl: "/audio/emJesusAmigoTemos-Demonstrativo.mp3",
         naipes: [
-          { id: "s2-soprano", name: "Soprano", pdfUrl: "/pdf/emJesusAmigoTemos.pdf", audioUrl: "/audio/emJesusAmigoTemos.mp3" },
-          { id: "s2-contralto", name: "Contralto", pdfUrl: "/pdf/emJesusAmigoTemos.pdf", audioUrl: "/audio/emJesusAmigoTemos.mp3" },
-          { id: "s2-tenor", name: "Tenor", pdfUrl: "/pdf/emJesusAmigoTemos.pdf", audioUrl: "/audio/emJesusAmigoTemos.mp3" },
-          { id: "s2-baixo", name: "Baixo", pdfUrl: "/pdf/emJesusAmigoTemos.pdf", audioUrl: "/audio/emJesusAmigoTemos.mp3" }
-        ]
-      }
-    ]
-  },
-  {
-    id: 2,
-    title: "Cantata de Natal",
-    date: "Dezembro de 2026",
-    time: "18:00",
-    location: "Igreja Batista Ágape",
-    description: "A celebração do nascimento de Jesus Cristo.",
-    songs: [
-      {
-        id: "s3",
-        title: "Noite Feliz",
-        composer: "Franz Gruber",
-        naipes: [
-          { id: "s3-soprano", name: "Soprano", pdfUrl: "/pdf/cancaoRevelacao.pdf", audioUrl: "/audio/noiteFeliz.mp3" },
-          { id: "s3-contralto", name: "Contralto", pdfUrl: "/pdf/cancaoRevelacao.pdf", audioUrl: "/audio/noiteFeliz.mp3" },
-          { id: "s3-tenor", name: "Tenor", pdfUrl: "/pdf/cancaoRevelacao.pdf", audioUrl: "/audio/noiteFeliz.mp3" },
-          { id: "s3-baixo", name: "Baixo", pdfUrl: "/pdf/cancaoRevelacao.pdf", audioUrl: "/audio/noiteFeliz.mp3" }
+          { id: "s2-soprano", name: "Soprano", pdfUrl: "/pdf/emJesusAmigoTemos.pdf", audioUrl: "/audio/emJesusAmigoTemos-Soprano.mp3" },
+          { id: "s2-mezzo", name: "Mezzo", pdfUrl: "/pdf/emJesusAmigoTemos.pdf", audioUrl: "/audio/emJesusAmigoTemos-Mezzo.mp3" },
+          { id: "s2-tenor-i", name: "Tenor I", pdfUrl: "/pdf/emJesusAmigoTemos.pdf", audioUrl: "/audio/emJesusAmigoTemos-Tenor I.mp3" },
+          { id: "s2-tenor-ii", name: "Tenor II", pdfUrl: "/pdf/emJesusAmigoTemos.pdf", audioUrl: "/audio/emJesusAmigoTemos-Tenor II.mp3" },
+          { id: "s2-baixo", name: "Baixo", pdfUrl: "/pdf/emJesusAmigoTemos.pdf", audioUrl: "/audio/emJesusAmigoTemos-Baixo.mp3" },
         ]
       }
     ]
@@ -152,10 +134,22 @@ const Events = () => {
                         </div>
                       </button>
 
+
+
                       {/* Expanded Content (List of Naipes) */}
                       <div className={`transition-all duration-300 ease-in-out ${isActive ? 'grid-rows-[1fr] opacity-100' : 'grid-rows-[0fr] opacity-0'} grid`}>
                         <div className="overflow-hidden">
                           <div className="px-6 pb-8 pt-4 border-t border-primary/10">
+
+                            {/* inserir componente de audio */}
+                            <div className="bg-primary rounded-xl p-6 mb-6 shadow-inner">
+                              <p className="text-white/50 text-xs font-semibold uppercase tracking-wider mb-3">Demonstrativo - ({song.title})</p>
+                              <audio controls className="w-full max-w-2xl outline-none" src={getAssetUrl(song.audioDemoUrl)}>
+                                Seu navegador não suporta o elemento de áudio.
+                              </audio>
+                            </div>
+
+
                             <h4 className="text-primary font-semibold mb-4 text-sm uppercase tracking-wider">Selecione seu naipe:</h4>
                             <div className="space-y-3">
                               {song.naipes.map((naipe) => {
@@ -170,7 +164,7 @@ const Events = () => {
                                       <span className="font-medium text-primary">{naipe.name}</span>
                                       {isNaipeActive ? <ChevronUp className="h-4 w-4 text-primary/60" /> : <ChevronDown className="h-4 w-4 text-primary/60" />}
                                     </button>
-                                    
+
                                     {/* Expanded Content (Audio + PDF) for Naipe */}
                                     <div className={`transition-all duration-300 ease-in-out ${isNaipeActive ? 'grid-rows-[1fr] opacity-100' : 'grid-rows-[0fr] opacity-0'} grid`}>
                                       <div className="overflow-hidden">
